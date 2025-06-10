@@ -2,10 +2,10 @@ using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
 
-const string baseUrl = "https://localhost:7214";
-const string endpoint = "/api/Orders/register-order";
-const int totalRequests = 1000; // Adjust for your test (e.g., 200_000 for full day)
-const int concurrency = 10;     // Number of concurrent tasks
+const string baseUrl = "http://localhost:5000";
+const string endpoint = "/api/orders/register-order";
+const int totalRequests = 1000;
+const int concurrency = 10;
 
 var success = 0;
 var fail = 0;
@@ -13,6 +13,7 @@ var totalTime = 0L;
 var errors = new List<string>();
 
 Console.WriteLine($"Starting load test: {totalRequests} requests, concurrency: {concurrency}");
+Console.WriteLine($"Target URL: {baseUrl}{endpoint}");
 
 var tasks = new List<Task>();
 var throttler = new SemaphoreSlim(concurrency);

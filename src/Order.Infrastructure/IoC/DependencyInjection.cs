@@ -1,17 +1,17 @@
-using MediatR;
 using FluentValidation;
-using System.Reflection;
-using Order.Domain.Interfaces;
-using Order.Application.Services;
-using Order.Application.Behaviors;
-using Order.Application.Interfaces;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Order.Infrastructure.Messaging;
-using Order.Infrastructure.Data.Context;
 using Microsoft.Extensions.Configuration;
-using Order.Infrastructure.Data.Repositories;
 using Microsoft.Extensions.DependencyInjection;
+using Order.Application.Behaviors;
 using Order.Application.Commands.RegisterOrder;
+using Order.Application.Interfaces;
+using Order.Application.Services;
+using Order.Domain.Interfaces;
+using Order.Infrastructure.Data.Context;
+using Order.Infrastructure.Data.Repositories;
+using Order.Infrastructure.Messaging;
+using System.Reflection;
 
 namespace Order.Infrastructure.IoC
 {

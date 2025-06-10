@@ -1,8 +1,8 @@
 using MediatR;
+using Microsoft.Extensions.Logging;
 using Order.Application.DTOs;
 using Order.Domain.Interfaces;
 using Order.Domain.ValueObjects;
-using Microsoft.Extensions.Logging;
 
 namespace Order.Application.Queries.GetOrders
 {
