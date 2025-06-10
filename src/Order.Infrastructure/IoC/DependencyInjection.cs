@@ -20,10 +20,9 @@ namespace Order.Infrastructure.IoC
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             // Database
-            services.AddDbContext<OrderDbContext>(options =>
-                options.UseNpgsql(
-                    configuration.GetConnectionString("DefaultConnection"),
-                    b => b.MigrationsAssembly(typeof(OrderDbContext).Assembly.FullName)));
+            services.AddDbContext<OrderDbContext>(options => options.UseNpgsql(
+                configuration.GetConnectionString("DefaultConnection"),
+                b => b.MigrationsAssembly(typeof(OrderDbContext).Assembly.FullName)));
 
             // Repositories
             services.AddScoped<IOrderRepository, OrderRepository>();

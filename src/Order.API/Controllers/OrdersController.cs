@@ -1,6 +1,5 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Order.API.Extensions;
 using Order.Application.Commands.RegisterOrder;
 using Order.Application.Queries.GetOrders;
 
@@ -15,8 +14,8 @@ namespace Order.API.Controllers
 
         public OrdersController(IMediator mediator, ILogger<OrdersController> logger)
         {
-            _mediator = mediator;
             _logger = logger;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -25,7 +24,7 @@ namespace Order.API.Controllers
         /// <param name="orderId">Optional order ID to filter by</param>
         /// <param name="externalId">Optional external ID to filter by</param>
         /// <returns>List of orders</returns>
-        [HttpGet]
+        [HttpGet("orders")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -61,7 +60,7 @@ namespace Order.API.Controllers
         /// </summary>
         /// <param name="command">Order information</param>
         /// <returns>Created order information</returns>
-        [HttpPost]
+        [HttpPost("register-order")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -84,7 +83,7 @@ namespace Order.API.Controllers
             }
             catch (FluentValidation.ValidationException ex)
             {
-                return BadRequest(ex.Errors.ToResponse());
+                return BadRequest(ex.Errors);
             }
             catch (Exception ex)
             {

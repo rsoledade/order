@@ -6,8 +6,8 @@ namespace Order.API.Middlewares
     public class GlobalExceptionHandlerMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ILogger<GlobalExceptionHandlerMiddleware> _logger;
         private readonly IWebHostEnvironment _env;
+        private readonly ILogger<GlobalExceptionHandlerMiddleware> _logger;
 
         public GlobalExceptionHandlerMiddleware(RequestDelegate next, ILogger<GlobalExceptionHandlerMiddleware> logger, IWebHostEnvironment env)
         {
@@ -48,7 +48,6 @@ namespace Order.API.Middlewares
         }
     }
 
-    // Extension method for adding the middleware to the HTTP pipeline
     public static class GlobalExceptionHandlerMiddlewareExtensions
     {
         public static IApplicationBuilder UseGlobalExceptionHandler(this IApplicationBuilder builder)

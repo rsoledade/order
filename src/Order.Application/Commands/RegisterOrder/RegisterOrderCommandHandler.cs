@@ -10,21 +10,18 @@ namespace Order.Application.Commands.RegisterOrder
 {
     public class RegisterOrderCommandHandler : IRequestHandler<RegisterOrderCommand, RegisterOrderResponse>
     {
-        private readonly IOrderRepository _orderRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IEventPublisher _eventPublisher;
+        private readonly IOrderRepository _orderRepository;
         private readonly ILogger<RegisterOrderCommandHandler> _logger;
 
-        public RegisterOrderCommandHandler(
-            IOrderRepository orderRepository,
-            IUnitOfWork unitOfWork,
-            IEventPublisher eventPublisher,
-            ILogger<RegisterOrderCommandHandler> logger)
+        public RegisterOrderCommandHandler(IOrderRepository orderRepository,
+            IUnitOfWork unitOfWork, IEventPublisher eventPublisher, ILogger<RegisterOrderCommandHandler> logger)
         {
-            _orderRepository = orderRepository;
+            _logger = logger;
             _unitOfWork = unitOfWork;
             _eventPublisher = eventPublisher;
-            _logger = logger;
+            _orderRepository = orderRepository;
         }
 
         public async Task<RegisterOrderResponse> Handle(RegisterOrderCommand request, CancellationToken cancellationToken)
@@ -33,7 +30,6 @@ namespace Order.Application.Commands.RegisterOrder
             {
                 _logger.LogInformation("Processing order with ExternalId: {ExternalId}", request.ExternalId);
 
-                // Check for duplicate by ExternalId
                 var existingOrderByExternalId = await _orderRepository.GetByExternalIdAsync(request.ExternalId, cancellationToken);
                 if (existingOrderByExternalId != null)
                 {
@@ -46,17 +42,14 @@ namespace Order.Application.Commands.RegisterOrder
                     };
                 }
 
-                // Create products from DTOs
                 var products = request.Products.Select(p => new Product(
                     p.Name,
                     Money.Create(p.Price),
                     p.Quantity
                 )).ToList();
 
-                // Create order
                 var order = new Domain.Entities.Order(request.ExternalId, products);
 
-                // Check for duplicate by hash
                 var existingOrderByHash = await _orderRepository.GetByHashAsync(order.OrderHash, cancellationToken);
                 if (existingOrderByHash != null)
                 {
@@ -64,21 +57,17 @@ namespace Order.Application.Commands.RegisterOrder
                     order.MarkAsDuplicate();
                 }
 
-                // Start transaction
                 await _unitOfWork.BeginTransactionAsync(cancellationToken);
 
-                // Persist order
                 await _orderRepository.AddAsync(order, cancellationToken);
                 await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-                // Process the order if not duplicate
                 if (order.Status != Domain.Enums.OrderStatus.Duplicate)
                 {
                     order.MarkAsProcessed();
                     await _orderRepository.UpdateAsync(order, cancellationToken);
                     await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-                    // Publish event after successful processing
                     await PublishOrderProcessedEvent(order, cancellationToken);
                 }
 

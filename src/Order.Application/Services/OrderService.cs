@@ -8,10 +8,10 @@ namespace Order.Application.Services
 {
     public class OrderService : IOrderService
     {
-        private readonly IOrderRepository _orderRepository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IEventPublisher _eventPublisher;
         private readonly ILogger<OrderService> _logger;
+        private readonly IEventPublisher _eventPublisher;
+        private readonly IOrderRepository _orderRepository;
 
         public OrderService(
             IOrderRepository orderRepository,
