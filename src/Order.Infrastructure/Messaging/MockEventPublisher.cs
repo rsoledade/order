@@ -1,5 +1,5 @@
-using Microsoft.Extensions.Logging;
 using Order.Domain.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace Order.Infrastructure.Messaging
 {

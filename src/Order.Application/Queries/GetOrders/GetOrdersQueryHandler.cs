@@ -1,8 +1,8 @@
 using MediatR;
-using Microsoft.Extensions.Logging;
 using Order.Application.DTOs;
 using Order.Domain.Interfaces;
 using Order.Domain.ValueObjects;
+using Microsoft.Extensions.Logging;
 
 namespace Order.Application.Queries.GetOrders
 {
@@ -11,20 +11,17 @@ namespace Order.Application.Queries.GetOrders
         private readonly IOrderRepository _orderRepository;
         private readonly ILogger<GetOrdersQueryHandler> _logger;
 
-        public GetOrdersQueryHandler(
-            IOrderRepository orderRepository,
-            ILogger<GetOrdersQueryHandler> logger)
+        public GetOrdersQueryHandler(IOrderRepository orderRepository, ILogger<GetOrdersQueryHandler> logger)
         {
-            _orderRepository = orderRepository;
             _logger = logger;
+            _orderRepository = orderRepository;
         }
 
         public async Task<GetOrdersResponse> Handle(GetOrdersQuery request, CancellationToken cancellationToken)
         {
             try
             {
-                _logger.LogInformation("Getting orders with filters: OrderId={OrderId}, ExternalId={ExternalId}",
-                    request.OrderId, request.ExternalId);
+                _logger.LogInformation("Getting orders with filters: OrderId={OrderId}, ExternalId={ExternalId}", request.OrderId, request.ExternalId);
 
                 // Retrieve orders based on filters
                 if (request.OrderId.HasValue)

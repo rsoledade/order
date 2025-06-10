@@ -6,8 +6,8 @@ namespace Order.API.Middlewares
     public class GlobalExceptionHandlerMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ILogger<GlobalExceptionHandlerMiddleware> _logger;
         private readonly IWebHostEnvironment _env;
+        private readonly ILogger<GlobalExceptionHandlerMiddleware> _logger;
 
         public GlobalExceptionHandlerMiddleware(RequestDelegate next, ILogger<GlobalExceptionHandlerMiddleware> logger, IWebHostEnvironment env)
         {

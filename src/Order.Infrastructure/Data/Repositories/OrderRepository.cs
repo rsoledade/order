@@ -1,6 +1,6 @@
-using Microsoft.EntityFrameworkCore;
 using Order.Domain.Interfaces;
 using Order.Domain.ValueObjects;
+using Microsoft.EntityFrameworkCore;
 using Order.Infrastructure.Data.Context;
 
 namespace Order.Infrastructure.Data.Repositories

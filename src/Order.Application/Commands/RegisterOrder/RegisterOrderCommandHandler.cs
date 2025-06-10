@@ -1,30 +1,27 @@
 using MediatR;
-using Microsoft.Extensions.Logging;
-using Order.Application.DTOs;
-using Order.Application.Events;
 using Order.Domain.Entities;
+using Order.Application.DTOs;
 using Order.Domain.Interfaces;
+using Order.Application.Events;
 using Order.Domain.ValueObjects;
+using Microsoft.Extensions.Logging;
 
 namespace Order.Application.Commands.RegisterOrder
 {
     public class RegisterOrderCommandHandler : IRequestHandler<RegisterOrderCommand, RegisterOrderResponse>
     {
-        private readonly IOrderRepository _orderRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IEventPublisher _eventPublisher;
+        private readonly IOrderRepository _orderRepository;
         private readonly ILogger<RegisterOrderCommandHandler> _logger;
 
-        public RegisterOrderCommandHandler(
-            IOrderRepository orderRepository,
-            IUnitOfWork unitOfWork,
-            IEventPublisher eventPublisher,
-            ILogger<RegisterOrderCommandHandler> logger)
+        public RegisterOrderCommandHandler(IOrderRepository orderRepository,
+            IUnitOfWork unitOfWork, IEventPublisher eventPublisher, ILogger<RegisterOrderCommandHandler> logger)
         {
-            _orderRepository = orderRepository;
+            _logger = logger;
             _unitOfWork = unitOfWork;
             _eventPublisher = eventPublisher;
-            _logger = logger;
+            _orderRepository = orderRepository;
         }
 
         public async Task<RegisterOrderResponse> Handle(RegisterOrderCommand request, CancellationToken cancellationToken)

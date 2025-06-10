@@ -1,11 +1,11 @@
-using FluentAssertions;
-using Microsoft.Extensions.Logging;
 using Moq;
-using Order.Application.Commands.RegisterOrder;
-using Order.Application.DTOs;
+using FluentAssertions;
 using Order.Domain.Entities;
+using Order.Application.DTOs;
 using Order.Domain.Interfaces;
 using Order.Domain.ValueObjects;
+using Microsoft.Extensions.Logging;
+using Order.Application.Commands.RegisterOrder;
 
 namespace Order.Tests.Application
 {

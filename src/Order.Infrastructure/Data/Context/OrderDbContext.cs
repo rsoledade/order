@@ -1,5 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using Order.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Order.Infrastructure.Data.Context
 {
