@@ -1,7 +1,5 @@
 namespace Order.Application.Interfaces
 {
-    // This interface can be extended with additional repository methods specific to the application layer
-    // It serves as a facade over the domain repository
     public interface IOrderService
     {
         Task<Domain.Entities.Order> GetOrderByIdAsync(Guid orderId, CancellationToken cancellationToken = default);

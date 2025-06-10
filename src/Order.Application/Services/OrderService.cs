@@ -1,17 +1,17 @@
-using Microsoft.Extensions.Logging;
-using Order.Application.Interfaces;
 using Order.Domain.Events;
 using Order.Domain.Interfaces;
 using Order.Domain.ValueObjects;
+using Microsoft.Extensions.Logging;
+using Order.Application.Interfaces;
 
 namespace Order.Application.Services
 {
     public class OrderService : IOrderService
     {
-        private readonly IOrderRepository _orderRepository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IEventPublisher _eventPublisher;
         private readonly ILogger<OrderService> _logger;
+        private readonly IEventPublisher _eventPublisher;
+        private readonly IOrderRepository _orderRepository;
 
         public OrderService(
             IOrderRepository orderRepository,

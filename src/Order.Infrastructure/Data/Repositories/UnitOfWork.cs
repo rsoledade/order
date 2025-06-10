@@ -5,8 +5,8 @@ namespace Order.Infrastructure.Data.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly OrderDbContext _context;
         private bool _disposed;
+        private readonly OrderDbContext _context;
 
         public UnitOfWork(OrderDbContext context)
         {

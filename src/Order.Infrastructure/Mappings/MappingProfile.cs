@@ -1,7 +1,7 @@
 using AutoMapper;
+using Order.Domain.Entities;
 using Order.Application.DTOs;
 using Order.Application.Events;
-using Order.Domain.Entities;
 
 namespace Order.Infrastructure.Mappings
 {
