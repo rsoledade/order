@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: src/Order.API/Dockerfile
+    container_name: order-api
+    ports:
+      - "5000:80"
+      - "5001:443"
+    depends_on:
+      - postgres
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=OrderDb;Username=postgres;Password=postgres
+    networks:
+      - order-network
+
+  postgres:
+    image: postgres:latest
+    container_name: order-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: OrderDb
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - order-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: order-pgadmin
+    depends_on:
+      - postgres
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    networks:
+      - order-network
+
+networks:
+  order-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
