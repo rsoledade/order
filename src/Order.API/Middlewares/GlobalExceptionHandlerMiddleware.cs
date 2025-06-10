@@ -48,7 +48,6 @@ namespace Order.API.Middlewares
         }
     }
 
-    // Extension method for adding the middleware to the HTTP pipeline
     public static class GlobalExceptionHandlerMiddlewareExtensions
     {
         public static IApplicationBuilder UseGlobalExceptionHandler(this IApplicationBuilder builder)

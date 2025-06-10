@@ -1,8 +1,8 @@
+using Microsoft.Extensions.Logging;
+using Order.Application.Interfaces;
 using Order.Domain.Events;
 using Order.Domain.Interfaces;
 using Order.Domain.ValueObjects;
-using Microsoft.Extensions.Logging;
-using Order.Application.Interfaces;
 
 namespace Order.Application.Services
 {

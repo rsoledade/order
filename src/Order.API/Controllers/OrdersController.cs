@@ -1,8 +1,7 @@
 using MediatR;
-using Order.API.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Order.Application.Queries.GetOrders;
 using Order.Application.Commands.RegisterOrder;
+using Order.Application.Queries.GetOrders;
 
 namespace Order.API.Controllers
 {
@@ -84,7 +83,7 @@ namespace Order.API.Controllers
             }
             catch (FluentValidation.ValidationException ex)
             {
-                return BadRequest(ex.Errors.ToResponse());
+                return BadRequest(ex.Errors);
             }
             catch (Exception ex)
             {
